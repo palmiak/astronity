@@ -1,0 +1,47 @@
+---
+import { getNavigation } from "../utils/sanityHelper.js";
+import MenuHeaderMobile from "./menuHeaderMobile.astro";
+import MenuHeader from "./menuHeader.astro";
+
+const navigation = await getNavigation( 'header_menu' );
+---
+<header class="fixed z-40 top-0 left-0 w-full bg-palmiak_bg/90 backdrop-blur-[10px]">
+    <div class="flex items-center mx-auto max-w-6xl px-6 py-10">
+        <div class="flex-1">
+            <a href="/" class="block" aria-label="Return to the homepage">        
+                <svg width="76" height="65" viewBox="0 0 76 65" fill="none" class="max-h-10" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M75.656 28.2887L38.0493 46.0009V36.1795L62.3929 24.931C63.4562 24.4273 64.5475 24.0076 65.6667 23.6718C66.786 23.3361 67.6534 23.1122 68.269 23.0003C67.6534 22.8884 66.814 22.6645 65.7507 22.3287C64.6314 21.937 63.5122 21.4893 62.3929 20.9856L38.0493 9.73718V0.0836487L75.656 17.7958V28.2887ZM-8.39233e-05 46.474L37.6067 64.1861V54.3647L13.263 43.1163C12.1997 42.6126 11.1085 42.1929 9.98922 41.8571C8.86997 41.5213 8.00255 41.2975 7.38696 41.1856C8.00255 41.0736 8.84199 40.8498 9.90528 40.514C11.0245 40.1223 12.1438 39.6746 13.263 39.1709L37.6067 27.9225V18.2689L-8.39233e-05 35.9811V46.474Z" fill="url(#paint0_linear_5_62)"/>
+                    <defs>
+                    <linearGradient id="paint0_linear_5_62" x1="6.65601" y1="50" x2="71.9967" y2="27.7432" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F027A6"/>
+                    <stop offset="0.515625" stop-color="#A05FE0"/>
+                    <stop offset="1" stop-color="#16E6F3"/>
+                    </linearGradient>
+                    </defs>
+                </svg>
+            </a>
+        </div>
+
+        <div class="pl-5 relative sm:hidden" x-data="{ open : false }">
+            <button class="block cursor-pointer p-2 bg-zinc-800 rounded-lg" aria-label="Menu" @click="open = true">
+                <img src="/images/icons/more-vertical.svg" class="h-6 w-6">
+            </button>
+
+            <div x-show="open" @click.outside="open = false" x-transition
+                class="absolute top-10 right-0 shadow-lg bg-zinc-700 rounded-lg p-1 max-w-[280px] min-w-[120px] sm:static sm:block">
+                <ul class="font-bold font-palmiak-font tracking-widest">
+                {navigation[0].navItems.map((item) => (
+                    <MenuHeaderMobile href={item.navItemUrl.linkUrl}>{item.text}</MenuHeaderMobile>
+                ))}
+                    
+                </ul>
+            </div>
+        </div>
+
+        <ul class="hidden sm:inline-flex font-bold items-center font-palmiak-font text-sm tracking-widest">
+        {navigation[0].navItems.map((item) => (
+            <MenuHeader href={item.navItemUrl.linkUrl}>{item.text}</MenuHeader>
+        ))}
+        </ul>
+    </div>
+</header>

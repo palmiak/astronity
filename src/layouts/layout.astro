@@ -1,0 +1,31 @@
+---
+import '../styles/base.css';
+import Header from '../components/header.astro';
+import Footer from '../components/footer.astro';
+
+const { title="Home page", isArchive=false } = Astro.props;
+---
+<!doctype html>
+<html lang="PL_PL">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Favicons -->
+        <meta name="msapplication-TileColor" content="#18181b" />
+        <meta name="theme-color" content="#18181b"/>
+        <title>{title}</title>
+    </head>
+    <body class="bg-palmiak_bg font-palmiak-font-serif leading-normal text-zinc-300">
+        <Header />
+
+        <div class="flex flex-col min-h-screen">
+            <div class:list={['flex-1 pb-10 w-full mx-auto pt-40', { 'max-w-3xl px-6': isArchive } ]}>
+                <slot />
+            </div>
+
+            <Footer />
+        </div>
+
+    </body>
+</html>

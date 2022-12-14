@@ -1,0 +1,190 @@
+@import 'highlightjs.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* martel-regular - latin */
+@font-face {
+    font-family: 'JetBrainsMono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrainsMono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrainsMono';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+}
+
+@layer components {
+    h1 {
+        @apply text-5xl md:text-5xl mb-10 font-bold text-white font-palmiak-font;
+    }
+
+    h2 {
+        @apply text-4xl lg:text-4xl mt-10 mb-4 font-bold text-white font-palmiak-font;
+    }
+
+    article h2 {
+        @apply text-3xl lg:text-4xl mt-10 mb-4 font-bold text-palmiak_pink font-palmiak-font;
+
+    }
+
+    h3 {
+        @apply text-2xl mt-8 mb-4 font-bold text-white font-palmiak-font;
+    }
+
+    h4 {
+        @apply text-xl mt-8 mb-4 font-bold text-white font-palmiak-font;
+    }
+
+    .content {
+        @apply text-lg px-6;
+    }
+
+    .content.page {
+        @apply text-lg px-0;
+    }
+
+    .content > * {
+        @apply max-w-3xl mx-auto;
+    }
+
+    .content .image.wide {
+        @apply max-w-6xl;
+    }
+
+    .content .image.wide figcaption {
+        @apply max-w-4xl mx-auto text-center;
+    }
+
+    .content p {
+        @apply leading-relaxed mb-6;
+    }
+
+    .content blockquote {
+        @apply text-3xl my-16 text-center text-white font-serif max-w-lg mx-auto;
+    }
+
+    .content > img,
+    .content p img {
+        @apply rounded-xl my-8 mx-auto;
+    }
+
+    .content .image {
+        @apply mx-auto my-10;
+    }
+
+    .content .image img {
+        @apply rounded-xl;
+    }
+
+    .content .image figcaption {
+        @apply mt-2;
+    }
+
+    .content .image.narrow figcaption {
+        @apply text-center;
+    }
+
+    .content p a {
+        @apply underline text-palmiak_blue hover:text-palmiak_pink transition-colors;
+    }
+
+    .content ul {
+        @apply my-5 pl-10 list-disc;
+    }
+
+    .content ol {
+        @apply my-5 pl-10 list-decimal;
+    }
+
+    .content li p {
+        @apply mb-0;
+    }
+
+    .content hr {
+        @apply my-12 border-zinc-700 max-w-[60%] mx-auto;
+    }
+
+    .content code {
+        @apply text-sm text-[#e0af68] bg-zinc-800 px-2 py-1 rounded-lg;
+    }
+
+    .content pre {
+        @apply bg-zinc-800 p-8 rounded-lg my-8;
+    }
+
+    .content pre code {
+        @apply block text-sm text-white bg-zinc-800 p-0 rounded-none whitespace-pre;
+    }
+
+    .content p ~ pre {
+        @apply mt-0;
+    }
+}
+
+.palmiak-post-title {
+    background: linear-gradient(45deg, #F027A6 0%, #16E6F3 20%, #A05FE0 50%, #16E6F3 80%, #F027A6 100%);
+    background-size: 200% auto;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.palmiak-post-title:hover {
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.palmiak-image {
+    @apply relative;
+}
+
+.palmiak-image:before {
+    content: "";
+    @apply absolute top-5 left-5 blur-3xl w-full h-full rounded-md block -z-10 transition-opacity duration-500 opacity-0;
+    /* @apply absolute top-0 left-0 w-full h-full rounded-md block z-10 mix-blend-multiply transition-opacity duration-300 delay-300 opacity-0; */
+    background: linear-gradient(49deg,#F027A6, #16E6F3, #A05FE0);
+    background-size: 180% 180%;
+}
+
+#revue-embed {
+    background: linear-gradient(49deg,#F027A6, #16E6F3, #A05FE0);
+}
+
+.palmiak-image:hover:before {
+    @apply opacity-100;
+    animation: gradient-animation 3s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

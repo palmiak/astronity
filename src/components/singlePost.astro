@@ -1,0 +1,34 @@
+---
+import Tag from './tag.astro';
+import { getFormattedDate } from "../utils/date.js";
+import { urlForImage } from '../utils/sanityHelper.js';
+import { marked } from 'marked';
+
+const { post } = Astro.props as Props;
+---
+<div class="mb-16 content page">
+    {post.mainImage &&
+    <a href={'/' + post.slug.current}>
+        <picture class="rounded-md block mb-10 palmiak-image">
+            <source media="(max-width:640px)" srcset={urlForImage(post.mainImage).width(640).auto("format")}>
+            <source media="(min-width:641px) and (max-width:800px)" srcset={urlForImage(post.mainImage).width(800).auto("format")}>
+            <img srcset={urlForImage(post.mainImage).width(1000).auto("format")} class="rounded-md">
+        </picture>
+    </a>}
+    <h2 class="palmiak-post-title mb-10">
+        <a href={'/' + post.slug.current} class="tracking-tight transition-colors">
+            {post.title}
+        </a>
+    </h2>
+
+    <p>
+        <span class="text-zinc-300 font-medium">Published on: { getFormattedDate( post.publishedAt )}</span>
+    </p>
+    <section class="font-bold" set:html={ marked.parse(post.excerpt) } />
+
+    <div class="mt-5 inline-flex flex-wrap items-center">
+    {post.categories.map((item) => (
+        <Tag href={'/category/' + item.slug.current}>{item.title}</Tag>
+    ))}
+    </div>
+</div>

@@ -1,0 +1,99 @@
+---
+import Layout from "../layouts/layout.astro";
+import Tag from "../components/tag.astro";
+import { getPosts, urlForImage } from "../utils/sanityHelper.js";
+import { getFormattedDate } from "../utils/date.js";
+import { marked } from "marked";
+
+export async function getStaticPaths() {
+    const posts = await getPosts();
+    return posts.map((post) => {
+        return {
+            params: { slug: post.slug.current },
+            props: { post },
+        };
+    });
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={post.title}>
+    <article class="content">
+        <div class="flex flex-col mb-8 sm:flex-row sm:items-center">
+            <div class="flex-1 pr-5">
+                <span class="text-zinc-300 font-medium">
+                    {getFormattedDate(post.publishedAt)}
+                </span>
+            </div>
+
+            <div class="mt-5 flex-wrap inline-flex items-center">
+                {
+                    post.categories.map((item) => (
+                        <Tag href={"/category/" + item.slug.current}>
+                            {item.title}
+                        </Tag>
+                    ))
+                }
+            </div>
+        </div>
+
+        <h1 class="palmiak-post-title mb-10 text-4xl">{post.title}</h1>
+
+        <div class="image wide">
+            <picture class="rounded-md block mb-10 palmiak-image">
+                <source
+                    media="(max-width:640px)"
+                    srcset={urlForImage(post.mainImage)
+                        .width(640)
+                        .auto("format")}
+                />
+                <source
+                    media="(min-width:641px) and (max-width:800px)"
+                    srcset={urlForImage(post.mainImage)
+                        .width(800)
+                        .auto("format")}
+                />
+                <img
+                    srcset={urlForImage(post.mainImage)
+                        .width(1104)
+                        .auto("format")}
+                    class="rounded-md"
+                />
+            </picture>
+        </div>
+
+        <div
+            class="mb-10 text-2xl text-white font-bold"
+            set:html={marked.parse(post.excerpt)}
+        />
+
+        <div set:html={marked.parse(post.body)} />
+    </article>
+
+    <div class="mt-20 text-center flex items-center justify-center">
+        <div class="mx-2">
+            <a
+                href="/"
+                class="inline-flex items-center border border-zinc-700 text-sm px-4 py-2 rounded-full transition-colors hover:text-emerald-50 hover:border-zinc-600"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="mr-1"
+                >
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                All Articles
+            </a>
+        </div>
+    </div>
+</Layout>

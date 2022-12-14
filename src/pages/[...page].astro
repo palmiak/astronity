@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/layout.astro';
+import SinglePost from '../components/singlePost.astro';
+import Pagination from '../components/pagination.astro';
+import { getPostsList } from '../utils/sanityHelper.js';
+
+export async function getStaticPaths({ paginate }) {
+    const posts = await getPostsList();
+    return paginate(posts, { pageSize: 1 });
+}
+
+const { page } = Astro.props;
+---
+<Layout isArchive=true>
+    {page.data.map((item) => (
+        <SinglePost post={item} />
+    ))}
+
+    <Pagination data={page} />
+</Layout>

@@ -1,0 +1,8 @@
+---
+const { href } = Astro.props as Props;
+---
+<a href={href} class="rounded-3xl bg-gradient-to-r from-palmiak_blue to-palmiak_green font-palmiak-font uppercase tracking-wider text-xs px-0.5 py-0.5 transition-all mr-4 mb-2">
+    <span class="block bg-zinc-900 rounded-3xl py-2 px-5 transition-all text-white hover:bg-white hover:text-zinc-900">
+        <slot />
+    </span>
+</a>

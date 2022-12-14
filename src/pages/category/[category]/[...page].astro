@@ -1,0 +1,38 @@
+---
+import Layout from '../../../layouts/layout.astro';
+import SinglePost from '../../../components/singlePost.astro';
+import Pagination from '../../../components/pagination.astro';
+import { getPostsListByCategory, getCategories } from '../../../utils/sanityHelper.js';
+
+export async function getStaticPaths( {paginate} ) {
+    let data = [];
+    const categories = await getCategories();
+
+    const allPosts = await Promise.all( categories.map(async (category) => {
+        const posts = await getPostsListByCategory( category.slug );
+        data.push( paginate(posts, {
+            params: { "category": category.slug },
+            props: { category: category },
+            pageSize: 1
+        }) );
+    }));
+
+    return data;
+}
+
+const { page, category } = Astro.props;
+const params = Astro.params;
+---
+
+<Layout isArchive=true title={"Tag archive for: " + category.title }>
+    <div class="text-center mb-20">
+        <h1>
+            <span class="text-zinc-300">#</span>{category.title}
+        </h1>
+    </div>
+    {page.data.map((item) => (
+        <SinglePost post={item} />
+    ))}
+
+    <Pagination data={page} />
+</Layout>

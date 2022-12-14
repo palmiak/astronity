@@ -1,0 +1,8 @@
+---
+const { href, label, target="" } = Astro.props as Props;
+---
+<li>
+    <a href={href} class="px-3 py-1 whitespace-nowrap block rounded-lg text-white transition-colors hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br hover:from-palmiak_blue hover:to-palmiak_green" target={target}>
+        <slot />
+    </a>
+</li>

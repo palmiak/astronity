@@ -1,0 +1,8 @@
+---
+const { href, label, target="" } = Astro.props as Props;
+---
+<li class="ml-5">
+    <a href={href} class="text-white transition-colors hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br hover:from-palmiak_blue hover:to-palmiak_green" target={target}>
+        <slot />
+    </a>
+</li>

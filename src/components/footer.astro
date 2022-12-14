@@ -1,0 +1,19 @@
+---
+import { getNavigation } from "../utils/sanityHelper.js";
+import FooterLink from "../components/footerLink.astro";
+
+const navigation = await getNavigation( 'footer_menu' );
+---
+<footer class="py-8 text-sm text-zinc-300">
+    <div class="flex items-center mx-auto max-w-6xl px-5">
+        <div class="flex-1 pr-5">
+            &copy; 2021
+        </div>
+
+        <div class="inline-flex items-center">
+        {navigation[0].navItems.map((item) => (
+            <FooterLink icon={item.icon_name} url={item.navItemUrl.linkUrl} label={item.text} />
+        ))}
+        </div>
+    </div>
+</footer>

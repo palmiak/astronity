@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon'
+
+const { data, defaultLink = '/' } = Astro.props as Props;
+
+const prevLink = data.url.prev ? data.url.prev : defaultLink;
+---
+<div class="mt-10 text-center">
+    <ul class="inline-flex items-center justify-center">
+        <li class="mx-2">
+            {data.currentPage > 1 ? <a href={prevLink} class="block px-3 py-2 border border-zinc-800 rounded-lg hover:text-white hover:border-zinc-700 transition-colors">
+                <Icon name="dashicons:arrow-left-alt" class="h-5 w-5" />
+            </a> : null }
+        </li>     
+
+        <li class="text-sm mx-5">
+            {data.currentPage} / {data.lastPage}
+        </li>
+
+        <li class="mx-2">
+            {data.url.next ? <a href={data.url.next} class="block px-3 py-2 border border-zinc-800 rounded-lg hover:text-white hover:border-zinc-700 transition-colors">
+                <Icon name="dashicons:arrow-right-alt" class="h-5 w-5" />
+            </a> : null }
+        </li>  
+    </ul>
+</div>

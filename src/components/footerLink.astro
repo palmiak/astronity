@@ -1,0 +1,8 @@
+---
+import { Icon } from 'astro-icon'
+const { icon, url, label } = Astro.props as Props;
+
+---
+<a href={url} class="ml-4 hover:text-emerald-100 transition-colors text-zinc-300" aria-label={label} target="_blank" rel="noopener">
+    <Icon name={icon} class="w-5 h-5"/>
+</a>
