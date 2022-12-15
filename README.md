@@ -1,3 +1,4 @@
+![post cover (1)](https://user-images.githubusercontent.com/2342458/207741010-efeb5cbd-c1ec-4e52-bc65-5ff7d3ef0c28.png)
 # Astronity - Astro + Sanity.io Blog
 
 This example shows how to connect [Sanity.io](https://sanity.io) with [Astro](https://astro.build).
